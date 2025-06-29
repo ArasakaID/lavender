@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100 bg-white">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Parrot - Cari tempat Magang-mu!</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <style>
+      @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Readex+Pro:wght@160..700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: normal;
+
+        flex-direction: column;
+        background-image: url("assets/background/bg.jpg");
+        background-position: center;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+
+      .bg-image {
+        object-fit: cover;
+      }
+      .bg-purple {
+        background: #a300d9;
+      }
+
+      .bg-purple-gradient {
+        background: #a300d9;
+        background: linear-gradient(
+          90deg,
+          rgba(163, 0, 217, 1) 0%,
+          rgba(124, 0, 166, 1) 47%,
+          rgba(101, 0, 135, 1) 100%
+        );
+      }
+
+      .bg-dark-purple {
+        background-color: #6c0090;
+      }
+
+      .bg-blur {
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+      }
+
+      .nav-item-hover {
+        transition: 200ms;
+      }
+
+      .nav-item-hover:hover {
+        scale: 1.05;
+        text-decoration: underline;
+      }
+
+      .replace-home-reg-button {
+        transition: 200ms;
+      }
+
+      .replace-home-reg-button:hover {
+        background-color: #6c0090;
+        scale: 1.05;
+      }
+
+      .typewriter h1 {
+        color: #fff;
+        overflow: hidden; /* Ensures the content is not revealed until the animation */
+        border-right: 0.15em solid orange; /* The typwriter cursor */
+        white-space: nowrap; /* Keeps the content on a single line */
+        margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+        letter-spacing: 0.15em; /* Adjust as needed */
+        animation: typing 3.5s steps(30, end),
+          blink-caret 0.5s step-end infinite;
+      }
+
+      /* The typing effect */
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      /* The typewriter cursor effect */
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: orange;
+        }
+      }
+
+      .text-gray {
+        color: rgb(129, 129, 129);
+      }
+
+      .bg-gray {
+        background-color: rgb(240, 240, 240);
+      }
+      .fs-7 {
+        font-size: 13px;
+      }
+      .fs-8 {
+        font-size: 11px;
+      }
+
+      .text-light-gray {
+        color: rgb(228, 228, 228);
+      }
+
+      .bg-diterima {
+        background: #62a300;
+        background: linear-gradient(
+          90deg,
+          rgba(98, 163, 0, 1) 0%,
+          rgba(0, 156, 5, 1) 78%
+        );
+      }
+      .job-card {
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      .job-card:hover {
+        border-color: #0d6efd;
+        box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+      }
+      .job-selected {
+        border-color: #0d6efd;
+        box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+      }
+      .job-tag {
+        font-size: 0.75rem;
+        background-color: #e2e3e5;
+        border-radius: 5px;
+        padding: 2px 6px;
+        margin-right: 5px;
+      }
+      .apply-tag {
+        color: #0d6efd;
+        font-size: 0.85rem;
+      }
+      .sticky-sidebar {
+        position: sticky;
+        top: 0;
+      }
+
+      .status-badge-success {
+        background-color: #5f9f00;
+      }
+
+      .status-badge-revision {
+        background-color: #baa100;
+      }
+
+      .status-badge-rejected {
+        background-color: #bd3c00;
+      }
+      .autocomplete-items {
+        position: absolute;
+        z-index: 99;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-top: none;
+      }
+
+      .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .autocomplete-items div:hover {
+        background-color: #f1f1f1;
+      }
+
+      .position-relative {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body class="d-flex h-100">
+    <nav class="navbar navbar-expand-lg bg-purple-gradient">
+      <div class="container">
+        <a class="navbar-brand fw-bold text-white" href="#">
+          <img
+            src="/assets/logo.png"
+            alt="Logo"
+            width="30"
+            height="24"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+        <button
+          class="navbar-toggler border-white text-white"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto gap-2">
+            <li class="nav-item rounded-1 nav-item-hover">
+              <a
+                class="nav-link text-white fs-6"
+                aria-current="page"
+                href="/home.html"
+                ><i class="bi bi-house"></i> Home</a
+              >
+            </li>
+            <li class="nav-item rounded-1 nav-item-hover">
+              <a class="nav-link text-white fs-6" aria-current="page" href="pendaftaran.html"
+                ><i class="bi bi-house"></i> Pendaftaran</a
+              >
+            </li>
+
+            <li class="nav-item rounded-1 nav-item-hover">
+              <a class="nav-link text-white" href="#"
+                ><i class="bi bi-person"></i> Cetak Setifikat</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-md px-3 d-flex flex-column w-100 p-3 mx-auto">
+      <div class="bg-purple-gradient p-2">
+        <div>
+          <i
+            class="bi bi-person bg-dark-purple text-white rounded-1 p-1 px-1"
+          ></i>
+          <p class="d-inline-block text-white fw-bold mb-2">Status Magang</p>
+        </div>
+        <div class="w-100 bg-white py-1 rounded-top-1 rounded-bottom-1 p-2">
+          <table class="table table-striped-columns fs-7">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Perusahaan</th>
+                <th scope="col">Profesi</th>
+                <th scope="col">Status</th>
+                <th scope="col">Berkas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>PT Ambatukam TL</td>
+                <td><strong>Kasir</strong></td>
+                <td>
+                  <p
+                    class="p-2 rounded-2 status-badge-success fs-7 text-center text-white d-inline-block"
+                  >
+                    Selesai
+                  </p>
+                </td>
+                <td><a href="#">Sertifikat</a><br><a href="#">Pengesahan</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <nav aria-label="page navigation">
+            <ul class="pagination pagination-sm justify-content-end">
+              <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              Modal title
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Understood</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const companies = ["PT Telekomunikasi Indonesia (Persero) Tbk (Telkom)"];
+
+      const input = document.getElementById("compInput");
+      const list = document.getElementById("autocompleteList");
+
+      input.addEventListener("input", function () {
+        const value = this.value.toLowerCase();
+        list.innerHTML = "";
+
+        if (!value) return;
+
+        const filtered = companies.filter((item) =>
+          item.toLowerCase().includes(value)
+        );
+
+        filtered.forEach((item) => {
+          const option = document.createElement("div");
+          option.textContent = item;
+          option.addEventListener("click", function () {
+            input.value = item;
+            list.innerHTML = "";
+          });
+          list.appendChild(option);
+        });
+      });
+
+      // Tutup dropdown jika klik di luar
+      document.addEventListener("click", function (e) {
+        if (!e.target.closest(".position-relative")) {
+          list.innerHTML = "";
+        }
+      });
+      const jobs = [
+        {
+          title: "Back End Developer",
+          company: "ZettaByte Pte Ltd | Yogyakarta",
+          location: "Yogyakarta",
+          description:
+            "Zettabyte is a software development company that focuses on the education sector...",
+          requirements: [
+            "Fluent in English both oral and written.",
+            "Familiar with HTML, CSS, and JavaScript.",
+            "Familiar with Git and MongoDB.",
+          ],
+        },
+        {
+          title: "Magang - Data Entry",
+          company: "IndoTrading.com | Yogyakarta",
+          location: "Yogyakarta",
+          description:
+            "Bertugas melakukan input data secara akurat dan efisien.",
+          requirements: [
+            "Teliti dan rapi dalam memasukkan data.",
+            "Terbiasa menggunakan Microsoft Excel.",
+          ],
+        },
+        {
+          title: "React.js Developer",
+          company: "Coding Collective | Yogyakarta",
+          location: "Yogyakarta",
+          description:
+            "Mengembangkan UI modern menggunakan React.js dan integrasi API.",
+          requirements: [
+            "Pengalaman menggunakan React.js.",
+            "Mampu bekerja dalam tim agile.",
+            "Menguasai JavaScript ES6+.",
+          ],
+        },
+      ];
+
+      function selectJob(index) {
+        // Ganti isi detail
+        document.getElementById("job-title").textContent = jobs[index].title;
+        document.getElementById("job-company").textContent =
+          jobs[index].company;
+        document.getElementById("job-location").textContent =
+          "📍 " + jobs[index].location;
+        document.getElementById("job-description").textContent =
+          jobs[index].description;
+
+        // Ganti isi list requirements
+        const reqList = document.getElementById("job-requirements");
+        reqList.innerHTML = "";
+        jobs[index].requirements.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          reqList.appendChild(li);
+        });
+
+        // Highlight card yang dipilih
+        document.querySelectorAll(".job-card").forEach((card, i) => {
+          card.classList.toggle("job-selected", i === index);
+        });
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Parrot - Cari tempat Magang-mu!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Readex+Pro:wght@160..700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: normal;
+
+        flex-direction: column;
+        background-image: url("assets/background/bg.jpg");
+        background-position: center;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+      .form-container {
+        background-color: #8000b3; /* ungu tua */
+        color: white;
+        border-radius: 20px;
+        padding: 2rem;
+        max-width: 800px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+      .form-label {
+        margin-top: 1rem;
+      }
+      .form-control,
+      .form-select {
+        border-radius: 8px;
+      }
+      .form-icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #8000b3;
+      }
+      .input-group .form-control,
+      .input-group .form-select {
+        padding-left: 2.5rem;
+      }
+      .btn-purple {
+        background-color: #6a0dad;
+        color: white;
+        border-radius: 10px;
+        padding: 10px 30px;
+      }
+      .btn-purple:hover {
+        background-color: #580a9e;
+      }
+      .divider-line {
+        height: 1px;
+        background-color: white;
+        margin: 10px 0 30px;
+      }
+      .back-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+      }
+
+      .bg-image {
+        object-fit: cover;
+      }
+
+      .bg-purple {
+        background-color: #7a00a3;
+      }
+
+      .bg-dark-purple {
+        background-color: #6c0090;
+      }
+
+      .bg-blur {
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+      }
+
+      .nav-item-hover {
+        transition: 200ms;
+      }
+
+      .nav-item-hover:hover {
+        scale: 1.05;
+        text-decoration: underline;
+      }
+
+      .replace-home-reg-button {
+        transition: 200ms;
+      }
+
+      .replace-home-reg-button:hover {
+        background-color: #6c0090;
+        scale: 1.05;
+      }
+
+      .typewriter h1 {
+        color: #fff;
+        overflow: hidden; /* Ensures the content is not revealed until the animation */
+        border-right: 0.15em solid orange; /* The typwriter cursor */
+        white-space: nowrap; /* Keeps the content on a single line */
+        margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+        letter-spacing: 0.15em; /* Adjust as needed */
+        animation: typing 3.5s steps(30, end),
+          blink-caret 0.5s step-end infinite;
+      }
+
+      /* The typing effect */
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      /* The typewriter cursor effect */
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: orange;
+        }
+      }
+
+      .login-card {
+        background-color: #660099;
+        border-radius: 1.5rem;
+        width: 320px;
+        padding: 2.5rem 2rem;
+        box-shadow: 0 5px 15px rgba(102, 0, 153, 0.4);
+        color: white;
+      }
+      .login-card h2 {
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: 2rem;
+      }
+      .form-control {
+        border-radius: 0.375rem;
+        padding-left: 2.5rem;
+        height: 2.8rem;
+        background-color: #f8f9fa;
+        color: #333;
+      }
+      .form-control::placeholder {
+        color: #999;
+        font-size: 0.9rem;
+      }
+      .input-group-text {
+        background: transparent;
+        border: none;
+        color: #999;
+        position: absolute;
+        left: 0.65rem;
+        pointer-events: none;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.1rem;
+      }
+      .input-group {
+        position: relative;
+        margin-bottom: 1rem;
+      }
+      .btn-login {
+        background-color: #3c0066;
+        border: none;
+        width: 100%;
+        height: 2.8rem;
+        border-radius: 0.375rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        box-shadow: inset 0 2px 5px rgba(255 255 255 / 0.2);
+        transition: background-color 0.3s ease;
+      }
+      .btn-login:hover {
+        background-color: #2b004d;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-purple">
+      <div class="container">
+        <a class="navbar-brand fw-bold text-white" href="#">
+          <img
+            src="/assets/logo.png"
+            alt="Logo"
+            width="30"
+            height="24"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+        <button
+          class="navbar-toggler border-white text-white"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto gap-2">
+            <li class="nav-item rounded-1 nav-item-hover">
+              <a
+                class="nav-link text-white fs-6"
+                aria-current="page"
+                href="/index.html"
+                ><i class="bi bi-house"></i> Home</a
+              >
+            </li>
+            <li class="nav-item rounded-1 nav-item-hover">
+              <a class="nav-link text-white" href="#"
+                ><i class="bi bi-person"></i> Login</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-md px-3 d-flex flex-column w-100 p-3 mx-auto my-auto">
+      <main
+        class="d-flex flex-sm-row flex-column align-items-center justify-content-center gap-4 blur rounded-2 py-3"
+      >
+        <div class="form-container">
+          <button class="back-btn mb-3">
+            <i class="bi bi-arrow-left"></i>
+          </button>
+          <h3>PENDAFTARAN</h3>
+          <div class="divider-line"></div>
+
+          <form>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">Nama Lengkap</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white"
+                    ><i class="bi bi-person-fill"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nama Lengkap"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Tanggal Lahir</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white"
+                    ><i class="bi bi-calendar-event"></i
+                  ></span>
+                  <input
+                    type="date"
+                    class="form-control"
+                    placeholder="Tanggal Lahir"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Jenis Kelamin</label><br />
+                <i class="bi bi-gender-ambiguous me-2"></i>
+                <div class="form-check form-check-inline text-white">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="laki"
+                    value="Laki-laki"
+                  />
+                  <label class="form-check-label" for="laki">Laki-laki</label>
+                </div>
+                <div class="form-check form-check-inline text-white">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="perempuan"
+                    value="Perempuan"
+                  />
+                  <label class="form-check-label" for="perempuan"
+                    >Perempuan</label
+                  >
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Kewarganegaraan</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white"
+                    ><i class="bi bi-person-vcard"></i
+                  ></span>
+                  <select class="form-select">
+                    <option selected>Indonesia</option>
+                    <option>Malaysia</option>
+                    <option>Singapura</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Nama Universitas</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white"
+                    ><i class="bi bi-bookmark-fill"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nama Universitas"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Fakultas</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white"
+                    ><i class="bi bi-bookmark-fill"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Fakultas"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">Program Studi</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white"
+                    ><i class="bi bi-bookmark-fill"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Program Studi"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Nomor Induk Mahasiswa</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-white"
+                    ><i class="bi bi-bookmark-fill"></i
+                  ></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nomor Induk Mahasiswa"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center mt-4">
+              <a href="home.html" class="btn btn-purple">
+                Lanjut <i class="bi bi-arrow-right ms-2"></i>
+              </a>
+            </div>
+          </form>
+        </div>
+      </main>
+      <footer class="mt-5 text-white-50">
+        <p>
+          Cover template for
+          <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>,
+          by <a href="https://x.com/mdo" class="text-white">@mdo</a>.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

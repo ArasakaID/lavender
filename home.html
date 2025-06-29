@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100 bg-white">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Parrot - Cari tempat Magang-mu!</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <style>
+      @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Readex+Pro:wght@160..700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: normal;
+
+        flex-direction: column;
+        background-image: url("assets/background/bg.jpg");
+        background-position: center;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+
+      .bg-image {
+        object-fit: cover;
+      }
+      .bg-purple {
+        background: #a300d9;
+      }
+
+      .bg-purple-gradient {
+        background: #a300d9;
+        background: linear-gradient(
+          90deg,
+          rgba(163, 0, 217, 1) 0%,
+          rgba(124, 0, 166, 1) 47%,
+          rgba(101, 0, 135, 1) 100%
+        );
+      }
+
+      .bg-dark-purple {
+        background-color: #6c0090;
+      }
+
+      .bg-blur {
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+      }
+
+      .nav-item-hover {
+        transition: 200ms;
+      }
+
+      .nav-item-hover:hover {
+        scale: 1.05;
+        text-decoration: underline;
+      }
+
+      .replace-home-reg-button {
+        transition: 200ms;
+      }
+
+      .replace-home-reg-button:hover {
+        background-color: #6c0090;
+        scale: 1.05;
+      }
+
+      .typewriter h1 {
+        color: #fff;
+        overflow: hidden; /* Ensures the content is not revealed until the animation */
+        border-right: 0.15em solid orange; /* The typwriter cursor */
+        white-space: nowrap; /* Keeps the content on a single line */
+        margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+        letter-spacing: 0.15em; /* Adjust as needed */
+        animation: typing 3.5s steps(30, end),
+          blink-caret 0.5s step-end infinite;
+      }
+
+      /* The typing effect */
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      /* The typewriter cursor effect */
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: orange;
+        }
+      }
+
+      .text-gray {
+        color: rgb(129, 129, 129);
+      }
+
+      .bg-gray {
+        background-color: rgb(240, 240, 240);
+      }
+      .fs-7 {
+        font-size: 13px;
+      }
+      .fs-8 {
+        font-size: 11px;
+      }
+
+      .text-light-gray {
+        color: rgb(228, 228, 228);
+      }
+
+      .bg-diterima {
+        background: #62a300;
+        background: linear-gradient(
+          90deg,
+          rgba(98, 163, 0, 1) 0%,
+          rgba(0, 156, 5, 1) 78%
+        );
+      }
+      .job-card {
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      .job-card:hover {
+        border-color: #0d6efd;
+        box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+      }
+      .job-selected {
+        border-color: #0d6efd;
+        box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+      }
+      .job-tag {
+        font-size: 0.75rem;
+        background-color: #e2e3e5;
+        border-radius: 5px;
+        padding: 2px 6px;
+        margin-right: 5px;
+      }
+      .apply-tag {
+        color: #0d6efd;
+        font-size: 0.85rem;
+      }
+      .sticky-sidebar {
+        position: sticky;
+        top: 0;
+      }
+
+      .status-badge-success {
+        background-color: #5f9f00;
+      }
+
+      .status-badge-revision {
+        background-color: #baa100;
+      }
+
+      .status-badge-rejected {
+        background-color: #bd3c00;
+      }
+      .autocomplete-items {
+        position: absolute;
+        z-index: 99;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-top: none;
+      }
+
+      .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .autocomplete-items div:hover {
+        background-color: #f1f1f1;
+      }
+
+      .position-relative {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body class="d-flex">
+    <nav class="navbar navbar-expand-lg bg-purple-gradient">
+      <div class="container">
+        <a class="navbar-brand fw-bold text-white" href="#">
+          <img
+            src="/assets/logo.png"
+            alt="Logo"
+            width="30"
+            height="24"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+        <button
+          class="navbar-toggler border-white text-white"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto gap-2">
+            <li class="nav-item rounded-1 nav-item-hover">
+              <a
+                class="nav-link text-white fs-6"
+                aria-current="page"
+                href="/index.html"
+                ><i class="bi bi-house"></i> Home</a
+              >
+            </li>
+            <li class="nav-item rounded-1 nav-item-hover">
+              <a class="nav-link text-white fs-6" aria-current="page" href="pendaftaran.html"
+                ><i class="bi bi-house"></i> Pendaftaran</a
+              >
+            </li>
+
+            <li class="nav-item rounded-1 nav-item-hover">
+              <a class="nav-link text-white" href="perusahaan.html"
+                ><i class="bi bi-person"></i> Cetak Setifikat</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-md px-3 d-flex flex-column w-100 p-3 mx-auto">
+      <main
+        class="d-flex flex-md-row flex-column align-items-md-stretch align-items-center justify-content-center gap-4 rounded-2 py-3"
+      >
+        <div
+          class="h-full p-2 bg-purple-gradient rounded-2 shadow border-bottom border-1 flex-fill"
+        >
+          <i
+            class="bi bi-person bg-dark-purple text-white rounded-1 p-1 px-1"
+          ></i>
+          <p class="d-inline-block text-white fw-bold">Jadwal Bimbingan</p>
+          <div class="d-flex gap-2">
+            <img
+              class="rounded-3 bg-light w-25 shadow object-fit-cover"
+              src="/assets/avatar/abiko.jpg"
+            />
+            <div
+              class="w-75 d-flex flex-column gap-1 justify-content-center p-1 rounded-3 text-white"
+            >
+              <div class="d-flex gap-2 align-items-center">
+                <i
+                  class="text-center bi bi-person p-1 bg-dark-purple text-white fs-5 rounded-circle px-2"
+                ></i>
+                <p class="fs-7 mb-0">Abiko</p>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <i
+                  class="text-center bi bi-clock p-1 bg-dark-purple text-white fs-5 rounded-circle px-2"
+                ></i>
+                <p class="fs-7 mb-0">28 Juni 2025, 22:00 WIB</p>
+              </div>
+              <div class="d-flex gap-2 align-items-center">
+                <i
+                  class="text-center bi bi-bookmark p-1 bg-dark-purple text-white fs-5 rounded-circle px-2 shadow-sm"
+                ></i>
+                <p class="fs-7 mb-0">Tentang Menggambar Outline</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-1 d-flex gap-2 align-items-center justify-content-end">
+            <a href="#"
+              ><img
+                class="img-fluid p-1 bg-gray rounded-3"
+                width="60"
+                src="/assets/zoom.png"
+            /></a>
+            <a href="#"
+              ><img
+                class="img-fluid p-1 bg-gray rounded-3"
+                width="100"
+                src="/assets/gmeet.png"
+            /></a>
+          </div>
+        </div>
+        <div
+          class="w-100 h-full p-2 bg-purple-gradient rounded-2 shadow flex-fill"
+        >
+          <div class="d-flex flex-column gap-2 justify-content-center">
+            <div>
+              <i
+                class="bi bi-person bg-dark-purple text-white rounded-1 p-1 px-1"
+              ></i>
+              <p class="d-inline-block text-white fw-bold mb-0">Pengajuan</p>
+            </div>
+            <div
+              class="d-flex p-2 bg-dark-purple rounded-1 gap-1 shadow"
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
+            >
+              <img
+                src="/assets/perusahaan/bumn.png"
+                width="40"
+                height="40"
+                class="object-fit-contain p-1 bg-white rounded-1"
+              />
+              <div class="d-flex flex-column justify-content-center">
+                <p class="fw-bold text-white fs-7 mb-0">
+                  PT Telekomunikasi Indonesia (Persero) Tbk (Telkom)
+                </p>
+                <p class="fw-bold fs-8 mb-0 text-light-gray">
+                  Front-End Developer
+                </p>
+              </div>
+
+              <div class="w-25 d-flex justify-content-end align-items-center">
+                <button class="btn text-white p-1 bg-diterima">Diterima</button>
+              </div>
+            </div>
+            <div class="d-flex p-2 bg-dark-purple rounded-1 gap-1 shadow">
+              <img
+                src="/assets/perusahaan/bumn.png"
+                width="40"
+                height="40"
+                class="object-fit-contain p-1 bg-white rounded-1"
+              />
+              <div class="d-flex flex-column justify-content-center">
+                <p class="fw-bold text-white fs-7 mb-0">
+                  PT Telekomunikasi Indonesia (Persero) Tbk (Telkom)
+                </p>
+                <p class="fw-bold fs-8 mb-0 text-light-gray">
+                  Front-End Developer
+                </p>
+              </div>
+              <div
+                class="w-25 d-flex justify-content-end align-items-center justify-content-end"
+              >
+                <button class="btn text-white p-1 bg-warning">Diperiksa</button>
+              </div>
+            </div>
+            <div class="d-flex p-2 bg-dark-purple rounded-1 gap-1 shadow">
+              <img
+                src="/assets/perusahaan/bumn.png"
+                width="40"
+                height="40"
+                class="object-fit-contain p-1 bg-white rounded-1"
+              />
+              <div class="d-flex flex-column justify-content-center">
+                <p class="fw-bold text-white fs-7 mb-0">
+                  PT Telekomunikasi Indonesia (Persero) Tbk (Telkom)
+                </p>
+                <p class="fw-bold fs-8 mb-0 text-light-gray">
+                  Front-End Developer
+                </p>
+              </div>
+              <div class="w-25 d-flex justify-content-end align-items-center">
+                <button class="btn text-white p-1 bg-danger">Ditolak</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="w-100 bg-light p-1 rounded-1">
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseOne"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseOne"
+                    >
+                      Accordion Item #1
+                    </button>
+                  </h2>
+                  <div
+                    id="flush-collapseOne"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionFlushExample"
+                  >
+                    <div class="accordion-body">
+                      Placeholder content for this accordion, which is intended to
+                      demonstrate the <code>.accordion-flush</code> class. This is the
+                      first item’s accordion body.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseTwo"
+                    >
+                      Accordion Item #2
+                    </button>
+                  </h2>
+                  <div
+                    id="flush-collapseTwo"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionFlushExample"
+                  >
+                    <div class="accordion-body">
+                      Placeholder content for this accordion, which is intended to
+                      demonstrate the <code>.accordion-flush</code> class. This is the
+                      second item’s accordion body. Let’s imagine this being filled
+                      with some actual content.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseThree"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseThree"
+                    >
+                      Accordion Item #3
+                    </button>
+                  </h2>
+                  <div
+                    id="flush-collapseThree"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#accordionFlushExample"
+                  >
+                    <div class="accordion-body">
+                      Placeholder content for this accordion, which is intended to
+                      demonstrate the <code>.accordion-flush</code> class. This is the
+                      third item’s accordion body. Nothing more exciting happening
+                      here in terms of content, but just filling up the space to make
+                      it look, at least at first glance, a bit more representative of
+                      how this would look in a real-world application.
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div> -->
+      </main>
+      <div class="bg-purple-gradient p-2">
+        <div>
+          <i
+            class="bi bi-person bg-dark-purple text-white rounded-1 p-1 px-1"
+          ></i>
+          <p class="d-inline-block text-white fw-bold mb-2">Laporan Magang</p>
+        </div>
+        <div class="w-100 bg-white py-1 rounded-top-1 rounded-bottom-1 p-2">
+          <table class="table table-striped-columns fs-7">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Perusahaan</th>
+                <th scope="col">Laporan</th>
+                <th scope="col">Status</th>
+                <th scope="col">Respon</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>PT Telekomunikasi Indonesia (Persero) Tbk (Telkom)</td>
+                <td><a href="#">Link ke laporan</a></td>
+                <td>
+                  <p
+                    class="p-2 rounded-2 status-badge-success fs-7 text-center text-white d-inline-block"
+                  >
+                    Diterima
+                  </p>
+                </td>
+                <td><a href="#">Nilai</a></td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>PT Telekomunikasi Indonesia (Persero) Tbk (Telkom)</td>
+                <td><a href="#">Link ke laporan</a></td>
+                <td>
+                  <p
+                    class="p-2 rounded-2 status-badge-revision fs-7 text-center text-white d-inline-block"
+                  >
+                    Perlu Revisi
+                  </p>
+                </td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>PT Telekomunikasi Indonesia (Persero) Tbk (Telkom)</td>
+                <td><a href="#">Link ke laporan</a></td>
+                <td>
+                  <p
+                    class="p-2 rounded-2 status-badge-rejected fs-7 text-center text-white d-inline-block"
+                  >
+                    Ditolak
+                  </p>
+                </td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>PT Telekomunikasi Indonesia (Persero) Tbk (Telkom)</td>
+                <td><a href="#">Link ke laporan</a></td>
+                <td>
+                  <p
+                    class="p-2 rounded-2 bg-secondary fs-7 text-center text-white d-inline-block"
+                  >
+                    Seleb
+                  </p>
+                </td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+          <nav aria-label="page navigation">
+            <ul class="pagination pagination-sm justify-content-end">
+              <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        
+        <div class="w-100 bg-white py-1 rounded-bottom-1 rounded-top-1 mt-2">
+          <div class="d-flex mt-3">
+            <table class="table fs-8 mb-0">
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="position-relative w-100">
+                      <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                          <i class="bi bi-building"></i
+                        ></span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="compInput"
+                          placeholder="Perusahaan"
+                          aria-label="perusahaan"
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+                      <div id="autocompleteList" class="autocomplete-items"></div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group input-group-sm">
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="inputGroupFile01"
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      class="btn w-100 h-100 rounded-2 bg-secondary fs-7 text-center text-white d-inline-block"
+                    >
+                      Kirim Laporan
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <footer class="mt-5 text-white-50">
+        <p>
+          Cover template for
+          <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>,
+          by <a href="https://x.com/mdo" class="text-white">@mdo</a>.
+        </p>
+      </footer>
+    </div>
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              Modal title
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Understood</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const companies = ["PT Telekomunikasi Indonesia (Persero) Tbk (Telkom)"];
+
+      const input = document.getElementById("compInput");
+      const list = document.getElementById("autocompleteList");
+
+      input.addEventListener("input", function () {
+        const value = this.value.toLowerCase();
+        list.innerHTML = "";
+
+        if (!value) return;
+
+        const filtered = companies.filter((item) =>
+          item.toLowerCase().includes(value)
+        );
+
+        filtered.forEach((item) => {
+          const option = document.createElement("div");
+          option.textContent = item;
+          option.addEventListener("click", function () {
+            input.value = item;
+            list.innerHTML = "";
+          });
+          list.appendChild(option);
+        });
+      });
+
+      // Tutup dropdown jika klik di luar
+      document.addEventListener("click", function (e) {
+        if (!e.target.closest(".position-relative")) {
+          list.innerHTML = "";
+        }
+      });
+      const jobs = [
+        {
+          title: "Back End Developer",
+          company: "ZettaByte Pte Ltd | Yogyakarta",
+          location: "Yogyakarta",
+          description:
+            "Zettabyte is a software development company that focuses on the education sector...",
+          requirements: [
+            "Fluent in English both oral and written.",
+            "Familiar with HTML, CSS, and JavaScript.",
+            "Familiar with Git and MongoDB.",
+          ],
+        },
+        {
+          title: "Magang - Data Entry",
+          company: "IndoTrading.com | Yogyakarta",
+          location: "Yogyakarta",
+          description:
+            "Bertugas melakukan input data secara akurat dan efisien.",
+          requirements: [
+            "Teliti dan rapi dalam memasukkan data.",
+            "Terbiasa menggunakan Microsoft Excel.",
+          ],
+        },
+        {
+          title: "React.js Developer",
+          company: "Coding Collective | Yogyakarta",
+          location: "Yogyakarta",
+          description:
+            "Mengembangkan UI modern menggunakan React.js dan integrasi API.",
+          requirements: [
+            "Pengalaman menggunakan React.js.",
+            "Mampu bekerja dalam tim agile.",
+            "Menguasai JavaScript ES6+.",
+          ],
+        },
+      ];
+
+      function selectJob(index) {
+        // Ganti isi detail
+        document.getElementById("job-title").textContent = jobs[index].title;
+        document.getElementById("job-company").textContent =
+          jobs[index].company;
+        document.getElementById("job-location").textContent =
+          "📍 " + jobs[index].location;
+        document.getElementById("job-description").textContent =
+          jobs[index].description;
+
+        // Ganti isi list requirements
+        const reqList = document.getElementById("job-requirements");
+        reqList.innerHTML = "";
+        jobs[index].requirements.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          reqList.appendChild(li);
+        });
+
+        // Highlight card yang dipilih
+        document.querySelectorAll(".job-card").forEach((card, i) => {
+          card.classList.toggle("job-selected", i === index);
+        });
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
